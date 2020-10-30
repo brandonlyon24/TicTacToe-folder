@@ -1,23 +1,23 @@
 //This variable keeps track of whos trun it is
 let activePlayer = 'X';
 //This array stores an array of moves we use this to determine win conditions.
-let selectSquares = [];
+let selectedSquares = [];
 
 //This function is for placing an x into the square
 function placeXOrO(squareNumber) {
     //this condition ensures a square hasnt be selected already 
     //the .some() method is used to check each element of selectedSqure array to if its being clicked 
-    if (!selectSquares.some(Element => Element.includes(squareNumber))) {
+    if (!selectedSquares.some(Element => Element.includes(squareNumber))) {
         //this var retrives the html emelment id that was clicked
         let select = document.getElementById(squareNumber);
         //This condition checks whos turn it is 
         if (activePlayer === 'X') {
             //If active player is equal to x the x png is placed in html
-            select.style.backgroundImage = 'url("images/x.png")';
+            select.style.backgroundImage = 'url("images/x.png")'
             //Active player may only be x or o so if not x must be o 
-        }else {
+        } else {
             //If activePlayer is equal to o the o.png is placed in html 
-            select.style.backgroundImage = 'url(images/o.png")';
+            select.style.backgroundImage = 'url("images/o.png")';
         }
         //squarenumber and active player are concatenated together and added to array
         selectedSquares.push(squareNumber + activePlayer);
@@ -27,20 +27,20 @@ function placeXOrO(squareNumber) {
         if (activePlayer === 'X') {
             //changed player
             activePlayer = 'O';
-        }else {
+        } else {
             //changed player to x
             activePlayer = 'X'
         }
 
         //This function is for sound
-        Audio('./media/place.mp3');
+        audio('');
         //this conditon checks to see if its the computers turn 
         if (activePlayer === 'O') {
             //this function disables clicking for comptuer choice
             disableClick();
             //This function waits 1 second before placing an image
             //and enabling click
-            setTimeout(function () {  computersTurn();  }, 1000);
+            setTimeout(function () { computersTurn(); }, 1000);
         }
         //Returning true is needed for our computers turn function to work 
         return true;
@@ -52,7 +52,7 @@ function placeXOrO(squareNumber) {
         //This var stores a random number between 0 and 8 
         let pickASquare;
         //This condition allows our while loop to keep trying if a square is slected already
-        while(!success) {
+        while (!success) {
             //a random number between 0 and 8 is slected
             let pickASquare = String(Math.floor(Math.random() * 9));
             //If random number evaluates return true the square hasent been slected yet 
@@ -61,7 +61,7 @@ function placeXOrO(squareNumber) {
                 placeXOrO(pickASquare);
                 //This changes our boolen and ends the loop
                 success = true;
-        };
+            };
         }
     }
 }
@@ -70,7 +70,7 @@ function placeXOrO(squareNumber) {
 //draw win line function is called to draw line if conditon is met 
 function checkWinConditons() {
     // X 0, 1, 2 condition.
-    if  (arrayIncludes('0X', '1X', '2X')) { drawWinLine(50, 100, 558, 100); }
+    if (arrayIncludes('0X', '1X', '2X')) { drawWinLine(50, 100, 558, 100); }
     // X 3, 4, 5 condition.
     else if (arrayIncludes('3X', '4X', '5X')) { drawWinLine(50, 304, 558, 304); }
     // X 6, 7, 8 condition.
@@ -86,7 +86,7 @@ function checkWinConditons() {
     // X 0, 4, 8 condition.
     else if (arrayIncludes('0X', '4X', '8X')) { drawWinLine(100, 100, 520, 520); }
     // O  condition.
-    else if  (arrayIncludes('0O', '1O', '2O')) { drawWinLine(50, 100, 558, 100); }
+    else if (arrayIncludes('0O', '1O', '2O')) { drawWinLine(50, 100, 558, 100); }
     // O 3, 4, 5 condition.
     else if (arrayIncludes('3O', '4O', '5O')) { drawWinLine(50, 304, 558, 304); }
     // O 6, 7, 8 condition.
@@ -103,8 +103,8 @@ function checkWinConditons() {
     else if (arrayIncludes('0O', '4O', '8O')) { drawWinLine(100, 100, 520, 520); }
     //This condition checks for tie. If none of the above conditions register 
     // and 9 squares are selected , the codes exucutes
-    else if (selectSquares.length >= 9) {
-        Audio('./media/tie.mp3');
+    else if (selectedSquares.length >= 9) {
+        audio('./media/tie.mp3');
         //This function sets a .3 second timer before the resetgame is called
         setTimeout(function () { resetGame(); }, 1000);
     }
@@ -116,20 +116,20 @@ function arrayIncludes(squareA, squareB, squareC) {
     const a = selectedSquares.includes(squareA);
     const b = selectedSquares.includes(squareB);
     const c = selectedSquares.includes(squareC);
-    if (a === true && b === true && c === true) { retrun true; };
+    if (a === true && b === true && c === true) { return true; }
 }
 //This function makes our body element temporaily unclickable
 function disableClick() {
     //This makes our body unclickable
     body.style.pointerEvents = 'none';
     //This makes our body clickable again after 1 second 
-    setTimeout(function() {body.style.pointerEvents = 'auto';}, 1000);
+    setTimeout(function () { body.style.pointerEvents = 'auto'; }, 1000);
 }
 //This function takes a string parameter of the path you set earlier for
 //placement sound 
-function audio(audioURL) {
+function audio() {
     //we create a new audio object and we pass the path as a parameter
-    let audio = new audio(audioURL);
+    let audio = new Audio("./media/pop.mp3");
     //play method plays our audio sound
     audio.play();
 }
@@ -140,12 +140,11 @@ function drawWinLine(coordX1, coordY1, coordX2, coordY2) {
     //this line gives us acess to methods and proprtys to use on canvas
     const c = canvas.getContext('2d');
     let x1 = coordX1,
-    y1 = coordY1,
-    x2 = coordX2,
-    y2 = coordY2,
-    x = x1,
-    y = y1;
-}
+        y1 = coordY1,
+        x2 = coordX2,
+        y2 = coordY2,
+        x = x1,
+        y = y1;
 //this function interacts with the canvas
 function animateLineDrawing() {
     //This if for when the game ends and restarts 
@@ -171,11 +170,11 @@ function animateLineDrawing() {
         //This condition adds 10 to the previous y end point
         if (y < y2) { y += 10; }
         //This condition cancles our animation loop
-        if (x >+ x2 && y >= y2) { cancelAnimationFrame(animationLoop); }
+        if (x > + x2 && y >= y2) { cancelAnimationFrame(animationLoop); }
     }
     if (x1 <= x2 && y1 >= y2) {
         if (x < x2) { x += 10; }
-        if (y > y2) { y-= 10; }
+        if (y > y2) { y -= 10; }
         if (x >= x2 && y <= y2) { cancelAnimationFrame(animationLoop); }
     }
 }
@@ -185,7 +184,20 @@ function clear() {
     c.clearRect(0, 0, 608, 608);
     cancelAnimationFrame(animationLoop);
 }
-disableClick();
-audio('./media/winGame.mp3');
+disableClick() 
+audio("./media/win.mp3");
 animateLineDrawing();
 setTimeout(function () { clear(); resetGame(); }, 1000);
+}
+//This function resets the game in a tie or a win
+function resetGame() {
+    //This for loop iterates though each HTML square element
+    for (let i = 0; i < 9; i++) {
+        //this var gets the html element of i 
+        let square = document.getElementById(String(i));
+        //this removes our elements backGroundImage
+        square.style.backgroundImage = '';
+    }
+    //Resets the array
+    selectedSquares = [];
+}
