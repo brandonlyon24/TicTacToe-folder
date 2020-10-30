@@ -13,11 +13,11 @@ function placeXOrO(squareNumber) {
         //This condition checks whos turn it is 
         if (activePlayer === 'X') {
             //If active player is equal to x the x png is placed in html
-            select.style.backgroundImage = 'url("images/x.png")'
+            select.style.backgroundImage = 'url("images/newX.png")'
             //Active player may only be x or o so if not x must be o 
         } else {
             //If activePlayer is equal to o the o.png is placed in html 
-            select.style.backgroundImage = 'url("images/o.png")';
+            select.style.backgroundImage = 'url("images/newO.png")';
         }
         //squarenumber and active player are concatenated together and added to array
         selectedSquares.push(squareNumber + activePlayer);
