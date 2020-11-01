@@ -78,7 +78,7 @@ function Input_Digit(digit) {
     }
     //this function updates the screen with contents of display value 
     function Update_Display() {
-        const display = document.querySelector('.calculator-keys');
+        const display = document.querySelector('.calculator-screen');
         display.value = calculator.Display_Value;
     }
     Update_Display();
